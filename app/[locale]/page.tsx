@@ -12,7 +12,7 @@ export default function Home() {
       <Hero />
       <Metrics />
       <Timeline />
-      <ProjectSlider />
+      {/* <ProjectSlider /> */}
       <Stack />
       <Certifications />
       <Footer />
