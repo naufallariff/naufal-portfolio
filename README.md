@@ -1,7 +1,3 @@
-### 1. File `README.md`
-
-Buat file baru bernama **`README.md`** di *root folder* proyek Anda dan salin kode berikut:
-
 # ⚡️ Personal Portfolio — Muhammad Naufal Arif
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)

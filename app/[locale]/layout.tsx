@@ -7,10 +7,46 @@ import { ThemeProvider } from "../../components/ThemeProvider";
 import { NavBar } from "../../components/ui/NavBar";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
 
-export const metadata: Metadata = {
-  title: "M. Naufal Arif | Software Engineer & Data QA",
-  description: "Portfolio of Muhammad Naufal Arif. Specializing in AI Data QA and Full-Stack Engineering.",
-};
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://naufal.dev";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  const title = "Muhammad Naufal Arif | Software Engineer & Data QA";
+  const description =
+    locale === "id"
+      ? "Portofolio Muhammad Naufal Arif. Saya membangun aplikasi web dan bekerja di bidang Data QA untuk sistem AI."
+      : "Portfolio of Muhammad Naufal Arif. I build web applications and work in AI Data QA.";
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    authors: [{ name: "Muhammad Naufal Arif" }],
+    keywords: ["Naufal Arif", "Muhammad Naufal Arif", "Software Engineer", "Data QA", "Next.js Developer"],
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { en: "/en", id: "/id" },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}`,
+      siteName: "Muhammad Naufal Arif",
+      locale: locale === "id" ? "id_ID" : "en_US",
+      type: "profile",
+    },
+    twitter: { card: "summary_large_image", title, description },
+    robots: { index: true, follow: true },
+    verification: {
+      google: "KODE_DARI_SEARCH_CONSOLE",
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
