@@ -1,0 +1,195 @@
+{
+    "Navigation": {
+        "home": "Beranda",
+        "journey": "Perjalanan",
+        "gallery": "Karya",
+        "stack": "Keahlian",
+        "certs": "Sertifikasi",
+        "contact": "Kontak"
+    },
+    "Hero": {
+        "badge": "Tersedia untuk peluang baru",
+        "titlePrefix": "Membangun ",
+        "titleHighlight": "Sistem Andal",
+        "titleSuffix": " & Data Bersih.",
+        "subtitle": "Halo, saya Muhammad Naufal Arif. Saya lulusan Sistem Informasi yang kini bekerja di antara infrastruktur data AI dan web development. Saya sangat peduli pada bagaimana sebuah sistem benar-benar dibangun dari dasarnya.",
+        "btnExplore": "Lihat Karya Saya",
+        "btnDownload": "Unduh CV"
+    },
+    "Metrics": {
+        "items": {
+            "gpa": {
+                "title": "Fondasi Akademik",
+                "value": "IPK 3.82",
+                "description": "Lulusan Sistem Informasi dari STT Terpadu Nurul Fikri. Di sini saya belajar memetakan logika menjadi sistem."
+            },
+            "qa": {
+                "title": "Infrastruktur Data AI",
+                "value": "Spesialis QA",
+                "description": "Mengaudit data spasial dan point cloud 3D untuk memastikan model kendaraan otonom belajar dari dunia nyata secara akurat."
+            },
+            "web": {
+                "title": "Rekayasa Web",
+                "value": "Full-Stack",
+                "description": "Menulis kode server, merancang database, dan membangun antarmuka yang benar-benar berfungsi."
+            }
+        }
+    },
+    "Experience": {
+        "sectionTag": "Perjalanan Karier",
+        "sectionTitle": "Pengalaman Saya",
+        "jobs": [
+            {
+                "role": "QA Specialist - Semantic OCC",
+                "company": "PT Daligent Solusi Indonesia (KUPU)",
+                "period": "Mei 2026 - Sekarang",
+                "description": "Saya menjadi pertahanan terakhir untuk dataset kendaraan otonom Tier-1. Pekerjaan harian saya berkisar pada mengaudit point cloud 3D LiDAR yang kompleks dan menjaga batas spasial yang ketat. Pekerjaan ini menyadarkan saya bahwa algoritma AI hanya akan sepintar data yang kita suapkan padanya."
+            },
+            {
+                "role": "Anotator Data - Semantic OCC",
+                "company": "PT Daligent Solusi Indonesia (KUPU)",
+                "period": "Mar 2026 - Mei 2026",
+                "description": "Saya mengerjakan fondasi awal pemetaan spasial 3D. Menghabiskan waktu berjam-jam dengan teliti melabeli point cloud ke dalam 40+ kategori objek, memastikan setiap batas ruang tidak saling tumpang tindih."
+            },
+            {
+                "role": "Anotator Data - Rambu Lalu Lintas 4D",
+                "company": "PT Daligent Solusi Indonesia (KUPU)",
+                "period": "Feb 2026 - Mar 2026",
+                "description": "Langkah pertama saya di infrastruktur data AI. Saya melacak objek dinamis dan rambu lalu lintas di dataset 4D. Menjaga ID Objek agar tetap konsisten di setiap frame benar-benar menuntut akurasi tingkat piksel."
+            },
+            {
+                "role": "Administrator Audit Internal",
+                "company": "PT Panca Mitra Prima Sejahtera",
+                "period": "Nov 2025 - Jan 2026",
+                "description": "Sebelum masuk ke dunia tech, saya bekerja di ranah operasional. Saya memverifikasi dokumen perusahaan dan memantau pergerakan fisik barang. Pengalaman ini melatih insting saya untuk cepat menemukan kejanggalan."
+            },
+            {
+                "role": "Software Developer",
+                "company": "Uwais Telur Distributor",
+                "period": "Des 2024 - Mei 2025",
+                "description": "Saya membangun sistem aplikasi kasir (POS) dari nol untuk distributor lokal. Menggunakan Node.js dan SQLite, saya belajar bagaimana menerjemahkan kebutuhan bisnis yang berantakan menjadi alat fungsional yang dipakai orang setiap hari."
+            },
+            {
+                "role": "Instruktur & Administrator Akademik",
+                "company": "Pondok Pesantren Ibnu Jauzi",
+                "period": "2018 - 2021",
+                "description": "Saya mengajar tata bahasa Arab (Nahwu & Shorof) dan mengurus administrasi akademik. Dari sini saya belajar cara mereduksi hal rumit menjadi penjelasan yang mudah dipahami."
+            }
+        ]
+    },
+    "Gallery": {
+        "sectionTag": "Proyek",
+        "sectionTitle": "Hal-hal yang Pernah Saya Bangun",
+        "filterAll": "Semua Proyek",
+        "filterAI": "AI & Data QA",
+        "filterWeb": "Rekayasa Web",
+        "filterUIUX": "UI/UX",
+        "filterData": "Data & Sistem",
+        "projects": {
+            "lidar": {
+                "title": "QA Spasial 3D LiDAR",
+                "category": "AI Data QA",
+                "desc": "Saya mengaudit dan menganotasi point cloud 3D untuk dataset kendaraan otonom. Menjaga batas spasial yang ketat memastikan tidak ada data yang tumpang tindih. Proyek ini membuktikan bahwa AI sangat bergantung pada kebersihan datanya.",
+                "tags": [
+                    "3D LiDAR",
+                    "Semantic OCC",
+                    "Data QA"
+                ]
+            },
+            "dialectica": {
+                "title": "Dialectica",
+                "category": "Rekayasa Web",
+                "desc": "Aplikasi perpustakaan digital yang saya bangun dengan Next.js. Saya mengintegrasikan Gemini API agar pengguna bisa berdiskusi tentang buku yang mereka baca. Bagian tersulitnya adalah menjaga konteks AI tetap relevan di tengah diskusi yang panjang.",
+                "tags": [
+                    "Next.js",
+                    "TypeScript",
+                    "Gemini API"
+                ]
+            },
+            "ecommerce": {
+                "title": "Katalog Produk E-commerce",
+                "category": "Rekayasa Web",
+                "desc": "Proyek kolaborasi freelance di mana saya ikut mengembangkan sistem manajemen produk. Kami memakai Laravel 12 dan Livewire supaya tampilan frontend tetap reaktif tanpa harus menulis terlalu banyak custom JavaScript.",
+                "tags": [
+                    "Laravel",
+                    "Livewire",
+                    "MySQL"
+                ]
+            },
+            "uwais": {
+                "title": "Sistem POS Uwais",
+                "category": "Data & Sistem",
+                "desc": "Aplikasi enterprise pertama yang benar-benar saya rancang. Sistem ini menangani faktur otomatis dan pelacakan stok barang. Menjaga eksekusi query database tetap cepat di atas file lokal SQLite jadi tantangan yang cukup menyenangkan.",
+                "tags": [
+                    "Node.js",
+                    "Express",
+                    "SQLite"
+                ]
+            },
+            "kostku": {
+                "title": "Pencarian Properti Kostku",
+                "category": "UI/UX & Web",
+                "desc": "Di proyek ini saya mengambil peran sebagai Project Manager. Kami merancang antarmuka pencarian properti berbasis React.js. Saya belajar banyak tentang siklus Agile dan menyadari bahwa komunikasi dengan desainer itu sama pentingnya dengan menulis kode.",
+                "tags": [
+                    "React.js",
+                    "Agile",
+                    "UI/UX"
+                ]
+            },
+            "forum": {
+                "title": "REST API Forum Diskusi",
+                "category": "Rekayasa Web",
+                "desc": "Murni proyek backend. Saya menulis REST API untuk forum yang mengurus autentikasi pengguna dan sistem komentar bersarang (nested) dengan aman.",
+                "tags": [
+                    "Node.js",
+                    "Express",
+                    "REST"
+                ]
+            },
+            "rental": {
+                "title": "Sistem Rental Mobil",
+                "category": "Rekayasa Web",
+                "desc": "Aplikasi yang sangat bergantung pada database untuk mengatur masa sewa dan sesi pengguna, dibangun menggunakan framework klasik CodeIgniter.",
+                "tags": [
+                    "PHP",
+                    "CodeIgniter",
+                    "MySQL"
+                ]
+            }
+        }
+    },
+    "Stack": {
+        "sectionTag": "Alat Kerja",
+        "sectionTitle": "Apa yang Saya Gunakan",
+        "ai": {
+            "title": "Infrastruktur Data",
+            "desc": "Pemetaan 3D LiDAR, segmentasi semantik, pelacakan bounding box, dan audit kualitas data yang ketat."
+        },
+        "web": {
+            "title": "Rekayasa Web",
+            "desc": "TypeScript, React (Next.js), Node.js, Laravel, dan teknologi di sekitarnya."
+        },
+        "data": {
+            "title": "Penyimpanan & Deployment",
+            "desc": "MySQL, PostgreSQL, SQLite, Git, dan deployment di platform seperti Vercel."
+        },
+        "cert": {
+            "title": "Alur Kerja",
+            "desc": "Siklus Agile, pembuatan prototipe cepat, dan membaca dokumentasi teknis yang tak ada habisnya."
+        }
+    },
+    "Certifications": {
+        "sectionTag": "Pembelajaran Berkelanjutan",
+        "sectionTitle": "Sertifikasi",
+        "items": {
+            "ibm": "Code Generation dengan IBM Granite — IBM SkillsBuild",
+            "gamelab": "Bootcamp Backend Developer — Gamelab Indonesia",
+            "infinite": "Studi Web Development — Infinite Learning"
+        }
+    },
+    "Footer": {
+        "headline": "Saya suka memecahkan masalah yang rumit. Kalau Anda memiliki satu masalah yang perlu diselesaikan, mari ngobrol.",
+        "emailText": "Kirim Email",
+        "rights": "© 2026 Muhammad Naufal Arif. Dibuat dengan sepenuh hati."
+    }
+}

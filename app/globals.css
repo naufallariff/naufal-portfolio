@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 
+  -------------------------------------------------------------
+  1. KONFIGURASI TEMA TAILWIND (Utility Generation)
+  -------------------------------------------------------------
+  Semua variabel di blok ini akan dibaca Tailwind v4 
+  untuk men-generate class utilitas (cth: bg-apple-electric, text-apple-navy)
+*/
+@theme {
+  --color-apple-midnight: #080C14;
+  --color-apple-navy: #1E3A8A;
+  --color-apple-electric: #3B82F6;
+
+  /* Daftarkan warna Apple Glass agar bisa dipakai utilitas Tailwind seperti bg-apple-glass-light */
+  --color-apple-glass-light: rgba(255, 255, 255, 0.82);
+  --color-apple-glass-dark: rgba(15, 23, 42, 0.75);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Mengizinkan deteksi tema dark mode secara spesifik */
+@custom-variant dark (&:is(.dark *));
 
-@media (prefers-color-scheme: dark) {
+/* 
+  -------------------------------------------------------------
+  2. BASE LAYER (Root Variables & Global Resets)
+  -------------------------------------------------------------
+  Menyimpan variabel logika yang akan berganti nilainya 
+  berdasarkan mode Terang (Light) dan Gelap (Dark).
+*/
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* LIGHT MODE COLORS */
+    --bg-color: #E6EDF5;
+    --text-color: #0F172A;
+    --border-glass: rgba(30, 58, 138, 0.12);
+  }
+
+  .dark {
+    /* DARK MODE COLORS */
+    --bg-color: var(--color-apple-midnight);
+    --text-color: #E2E8F0;
+    --border-glass: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    /* Font San Francisco khas Apple */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    /* Transisi mode warna yang lembut secara global */
+    transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* 
+    -------------------------------------------------------------
+    ACCESSIBILITY: PREFERS REDUCED MOTION
+    -------------------------------------------------------------
+    Mematikan semua animasi untuk kenyamanan pengguna (Vestibular Safety)
+  */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 
+  -------------------------------------------------------------
+  3. UTILITIES LAYER (Custom Reusable Classes)
+  -------------------------------------------------------------
+  Berisi komponen desain solid ala Apple: 
+  Material Glass, Scale Interaksi, dan properti shadow unik.
+*/
+@layer utilities {
+
+  /* --- APPLE GLASS MATERIAL --- */
+  .apple-glass {
+    /* Base Color mengambil dari variabel tema Tailwind */
+    background-color: var(--color-apple-glass-light);
+
+    /* Efek Blur Kaca & Peningkatan Saturasi khas iOS */
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+    /* Garis tipis untuk memisahkan material dengan latar belakang */
+    border: 1px solid var(--border-glass);
+
+    /* Bayangan jatuh yang halus */
+    box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Transisi khusus Apple Glass saat mode berubah */
+  .dark .apple-glass {
+    background-color: var(--color-apple-glass-dark);
+    box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* --- APPLE ACTIVE SCALE (INTERACTION) --- */
+  .apple-active-scale {
+    /* Saat disentuh mengecil sedikit, transisi dihilangkan perlahan */
+    transition: transform 150ms cubic-bezier(0.2, 0, 0, 1);
+    will-change: transform;
+  }
+
+  .apple-active-scale:active {
+    /* Mengecil ke 97% saat di-klik (Sangat reaktif/responsif di awal) */
+    transform: scale(0.97);
+    transition: transform 50ms cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  /* --- KUSTOMISASI BAYANGAN (SHADOW) --- */
+  .shadow-apple-card {
+    box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .shadow-apple-card {
+    box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.4);
+  }
 }
