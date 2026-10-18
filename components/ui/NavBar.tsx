@@ -3,63 +3,64 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Moon, Sun, Globe, Briefcase, Terminal, Award, Mail, Menu, X } from "lucide-react";
 
+const BRAND = "Naufal Arif";
+
+// Rasio redaman sekitar 1.07, jadi navbar bergerak tanpa memantul
 const SPRING = { type: "spring", stiffness: 280, damping: 34, mass: 0.9 } as const;
+const REDUCED = { duration: 0.01 } as const;
+
 const HIDE_AFTER_Y = 120;
 const DIRECTION_MIN = 6;
 const LEAVE_DELAY = 350;
 
 const NAV_ITEMS = [
     { id: "journey", icon: Briefcase, href: "#journey" },
-    // { id: "gallery", icon: LayoutGrid, href: "#gallery" },
     { id: "stack", icon: Terminal, href: "#stack" },
     { id: "certs", icon: Award, href: "#certifications" },
     { id: "contact", icon: Mail, href: "#contact" },
 ] as const;
 
+const ICON_BTN =
+    "flex h-10 w-10 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-black/5 apple-active-scale dark:text-slate-300 dark:hover:bg-white/10";
+
 export function NavBar() {
-    const { theme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
     const pathname = usePathname();
+    const router = useRouter();
     const t = useTranslations("Navigation");
     const reduce = useReducedMotion();
+    const transition = reduce ? REDUCED : SPRING;
 
     const [isOpen, setIsOpen] = useState(false);
     const [visible, setVisible] = useState(true);
 
     const isOpenRef = useRef(false);
-    const hoveringRef = useRef(false);
+    const hoverRef = useRef(false);
     const lastYRef = useRef(0);
-    const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const timerRef = useRef(0);
 
-    // Sinkronkan ref tanpa setState. Ini tidak memicu render ulang.
+    // Navbar tampil saat terlihat atau saat menu mobile terbuka
+    const shown = visible || isOpen;
+
+    const show = useCallback(() => {
+        window.clearTimeout(timerRef.current);
+        setVisible(true);
+    }, []);
+
+    const hide = useCallback(() => {
+        if (hoverRef.current || isOpenRef.current) return;
+        setVisible(false);
+    }, []);
+
     useEffect(() => {
         isOpenRef.current = isOpen;
     }, [isOpen]);
 
-    // Navbar dianggap tampil saat terlihat ATAU saat menu mobile terbuka.
-    const shown = visible || isOpen;
-
-    const clearLeaveTimer = useCallback(() => {
-        if (leaveTimerRef.current) {
-            clearTimeout(leaveTimerRef.current);
-            leaveTimerRef.current = null;
-        }
-    }, []);
-
-    const show = useCallback(() => {
-        clearLeaveTimer();
-        setVisible(true);
-    }, [clearLeaveTimer]);
-
-    const hide = useCallback(() => {
-        if (hoveringRef.current || isOpenRef.current) return;
-        setVisible(false);
-    }, []);
-
-    // Scroll: naik = muncul, turun = sembunyi. Dibatch per frame.
+    // Scroll naik = tampil, turun = sembunyi. Dibatch per frame.
     useEffect(() => {
         let frame = 0;
 
@@ -71,118 +72,114 @@ export function NavBar() {
                 const delta = y - lastYRef.current;
                 lastYRef.current = y;
 
-                if (y < HIDE_AFTER_Y || delta < -DIRECTION_MIN) {
-                    show();
-                } else if (delta > DIRECTION_MIN) {
-                    hide();
-                }
+                if (y < HIDE_AFTER_Y || delta < -DIRECTION_MIN) show();
+                else if (delta > DIRECTION_MIN) hide();
             });
         };
 
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => {
             window.removeEventListener("scroll", onScroll);
-            if (frame) cancelAnimationFrame(frame);
-            clearLeaveTimer();
+            cancelAnimationFrame(frame);
+            window.clearTimeout(timerRef.current);
         };
-    }, [show, hide, clearLeaveTimer]);
+    }, [show, hide]);
 
-    const onHeaderEnter = () => {
-        hoveringRef.current = true;
+    // Escape menutup menu mobile
+    useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setIsOpen(false);
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+    }, [isOpen]);
+
+    const onEnter = () => {
+        hoverRef.current = true;
         show();
     };
 
-    const onHeaderLeave = () => {
-        hoveringRef.current = false;
+    const onLeave = () => {
+        hoverRef.current = false;
         if (window.scrollY < HIDE_AFTER_Y || isOpenRef.current) return;
-        clearLeaveTimer();
-        leaveTimerRef.current = setTimeout(hide, LEAVE_DELAY);
+        window.clearTimeout(timerRef.current);
+        timerRef.current = window.setTimeout(hide, LEAVE_DELAY);
     };
 
-    const switchLanguage = () => {
-        if (!pathname) return;
-        const currentLocale = pathname.startsWith("/id") ? "id" : "en";
-        const nextLocale = currentLocale === "en" ? "id" : "en";
-        window.location.href = pathname.replace(`/${currentLocale}`, `/${nextLocale}`);
+    const toggleLocale = () => {
+        const next = pathname.startsWith("/id") ? "en" : "id";
+        router.replace(pathname.replace(/^\/(en|id)(?=\/|$)/, `/${next}`));
     };
-
-    const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
-        setIsOpen(false);
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-    };
-
-    const transition = reduce ? { duration: 0.01 } : SPRING;
 
     return (
         <>
+            {/* Pemicu tak terlihat di tepi atas untuk desktop */}
             <div
-                aria-hidden="true"
+                aria-hidden
                 onPointerEnter={show}
-                className="fixed inset-x-0 top-0 z-40 h-6 hidden md:block"
+                className="fixed inset-x-0 top-0 z-40 hidden h-6 md:block"
             />
 
             <motion.header
                 initial={false}
-                animate={{
-                    y: shown ? 0 : -140,
-                    opacity: shown ? 1 : 0,
-                    scale: shown ? 1 : 0.98,
-                }}
+                animate={{ y: shown ? 0 : -140, opacity: shown ? 1 : 0, scale: shown ? 1 : 0.98 }}
                 transition={transition}
-                onPointerEnter={onHeaderEnter}
-                onPointerLeave={onHeaderLeave}
-                className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-4xl will-change-transform ${
-                    shown ? "pointer-events-auto" : "pointer-events-none"
-                }`}
+                onPointerEnter={onEnter}
+                onPointerLeave={onLeave}
+                className={`fixed left-1/2 top-4 z-50 w-[92%] max-w-4xl -translate-x-1/2 will-change-transform ${shown ? "pointer-events-auto" : "pointer-events-none"
+                    }`}
             >
-                <nav className="flex items-center justify-between px-5 py-3 rounded-full apple-glass shadow-lg backdrop-blur-2xl">
+                <nav className="apple-glass flex items-center justify-between rounded-full py-2.5 pl-2.5 pr-3 md:px-5 md:py-3">
                     <a
                         href="#home"
-                        onClick={(e) => handleNav(e, "#home")}
-                        className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/5 dark:bg-white/10 apple-active-scale transition-colors hover:bg-black/10 dark:hover:bg-white/20"
+                        aria-label={BRAND}
+                        className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-black/5 apple-active-scale dark:hover:bg-white/10"
                     >
-                        <span className="w-3 h-3 rounded-full bg-apple-electric animate-pulse" />
-                        <span className="font-bold text-sm tracking-tight text-slate-900 dark:text-white">NA</span>
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-apple-electric text-[11px] font-bold tracking-tight text-white">
+                            NA
+                        </span>
+                        <span className="hidden text-sm font-semibold tracking-tight text-slate-900 sm:block dark:text-white">
+                            {BRAND}
+                        </span>
                     </a>
 
-                    <div className="hidden md:flex items-center gap-1.5 bg-black/5 dark:bg-white/5 rounded-full px-2.5 py-1">
+                    <div className="hidden items-center gap-1 rounded-full bg-black/5 p-1 md:flex dark:bg-white/5">
                         {NAV_ITEMS.map((item) => (
                             <a
                                 key={item.id}
                                 href={item.href}
-                                onClick={(e) => handleNav(e, item.href)}
-                                className="px-4 py-2 text-sm font-medium rounded-full text-slate-700 dark:text-slate-300 hover:text-apple-electric dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/10 apple-active-scale transition-all duration-300"
+                                className="rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-white/70 hover:text-apple-electric dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
                             >
                                 {t(item.id)}
                             </a>
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <button
-                            onClick={switchLanguage}
-                            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-700 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/10 apple-active-scale transition-colors cursor-pointer"
-                            title="Switch Language"
-                        >
-                            <Globe className="w-4 h-4" />
+                    <div className="flex items-center gap-1">
+                        <button type="button" onClick={toggleLocale} className={ICON_BTN} title={t("switchLang")} aria-label={t("switchLang")}>
+                            <Globe className="h-4 w-4" />
                         </button>
 
                         <button
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-700 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/10 apple-active-scale transition-colors cursor-pointer"
-                            title="Toggle Theme"
+                            type="button"
+                            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                            className={ICON_BTN}
+                            title={t("toggleTheme")}
+                            aria-label={t("toggleTheme")}
                         >
-                            <Sun className="w-4 h-4 hidden dark:block" />
-                            <Moon className="w-4 h-4 block dark:hidden" />
+                            <Sun className="hidden h-4 w-4 dark:block" />
+                            <Moon className="h-4 w-4 dark:hidden" />
                         </button>
 
                         <button
+                            type="button"
                             onClick={() => setIsOpen((v) => !v)}
-                            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-black/5 dark:bg-white/10 text-slate-800 dark:text-slate-200 apple-active-scale cursor-pointer"
-                            aria-label="Toggle Menu"
+                            aria-expanded={isOpen}
+                            aria-label={t("menu")}
+                            className={`${ICON_BTN} md:hidden`}
                         >
-                            {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                            {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
                         </button>
                     </div>
                 </nav>
@@ -191,25 +188,27 @@ export function NavBar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20, scale: 0.98 }}
+                        key="mobile-menu"
+                        initial={{ opacity: 0, y: -12, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                        exit={{ opacity: 0, y: -12, scale: 0.98 }}
                         transition={transition}
-                        className="fixed inset-x-4 top-20 z-40 md:hidden apple-glass rounded-3xl p-6 shadow-2xl border border-black/10 dark:border-white/10 backdrop-blur-3xl"
+                        className="apple-glass fixed inset-x-4 top-20 z-40 rounded-4xl p-3 md:hidden"
                     >
-                        <div className="flex flex-col gap-2">
-                            {NAV_ITEMS.map((item) => (
+                        {NAV_ITEMS.map((item) => {
+                            const Icon = item.icon;
+                            return (
                                 <a
                                     key={item.id}
                                     href={item.href}
-                                    onClick={(e) => handleNav(e, item.href)}
-                                    className="flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex items-center gap-3 rounded-2xl px-4 py-3.5 text-base font-semibold text-slate-800 transition-colors hover:bg-black/5 dark:text-slate-200 dark:hover:bg-white/10"
                                 >
-                                    <item.icon className="w-5 h-5 text-apple-electric" />
+                                    <Icon className="h-5 w-5 text-apple-electric" />
                                     {t(item.id)}
                                 </a>
-                            ))}
-                        </div>
+                            );
+                        })}
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -1,66 +1,54 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Award, ArrowUpRight } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
+
+const ITEMS = [
+    { key: "ibm", year: "2025" },
+    { key: "gamelab", year: "2024" },
+    { key: "infinite", year: "2023" },
+];
 
 export function Certifications() {
     const t = useTranslations("Certifications");
-
-    const certs = [
-        { key: "ibm", year: "2025" },
-        { key: "gamelab", year: "2024" },
-        { key: "infinite", year: "2023" }
-    ];
+    const reduce = useReducedMotion();
 
     return (
-        <section id="certifications" className="relative z-10 w-full max-w-6xl mx-auto px-6 py-16">
-            <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
-
-                {/* Bagian Judul Sisi Kiri */}
-                <div className="md:w-1/3 md:sticky md:top-28">
-                    <span className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 mb-4 border border-amber-500/20 inline-block">
-                        {t("sectionTag")}
-                    </span>
-                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mt-3 leading-tight">
-                        {t("sectionTitle")}
-                    </h2>
+        <section id="certifications" className="relative z-10 mx-auto w-full max-w-5xl px-6 pt-20 md:px-8 md:pt-28 pb-0">
+            <div className="flex flex-col gap-10 md:flex-row md:gap-16">
+                <div className="md:sticky md:top-32 md:w-1/3 md:self-start">
+                    <SectionHeader tag={t("sectionTag")} title={t("sectionTitle")} align="left" />
                 </div>
 
-                {/* Daftar Kartu Sertifikasi Sisi Kanan */}
-                <div className="md:w-2/3 flex flex-col gap-4 w-full">
-                    {certs.map((cert, index) => (
-                        <motion.div
-                            key={cert.key}
-                            initial={{ opacity: 0, y: 15 }}
+                <ul className="flex flex-1 flex-col gap-4">
+                    {ITEMS.map(({ key, year }, i) => (
+                        <motion.li
+                            key={key}
+                            initial={reduce ? false : { opacity: 0, y: 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-30px" }}
-                            transition={{ type: "spring", damping: 25, stiffness: 120, delay: index * 0.08 }}
-                            className="flex items-center justify-between p-6 md:p-8 rounded-3xl apple-glass shadow-apple-card hover:shadow-apple-glass transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                            transition={{ type: "spring", damping: 26, stiffness: 120, delay: reduce ? 0 : i * 0.06 }}
+                            className="glass-lift apple-glass group flex items-center gap-5 rounded-3xl p-6 md:p-7"
                         >
-                            <div className="absolute inset-0 bg-linear-to-r from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                            <div className="flex items-center gap-5 relative z-10">
-                                <div className="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 group-hover:scale-110 transition-transform duration-300">
-                                    <Award className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-slate-900 dark:text-white text-base md:text-lg leading-snug">
-                                        {t(`items.${cert.key}`)}
-                                    </h4>
-                                    <p className="text-xs font-semibold tracking-wider uppercase text-slate-500 dark:text-slate-400 mt-1">
-                                        Issued {cert.year}
-                                    </p>
-                                </div>
+                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-apple-electric/10 text-apple-electric">
+                                <Award className="h-6 w-6" strokeWidth={1.8} />
                             </div>
 
-                            <div className="w-10 h-10 shrink-0 flex items-center justify-center rounded-full bg-black/5 dark:bg-white/5 text-slate-400 group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-all duration-300 relative z-10">
-                                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            <div className="min-w-0 flex-1">
+                                <h3 className="text-base font-semibold leading-snug text-slate-900 md:text-lg dark:text-white">
+                                    {t(`items.${key}`)}
+                                </h3>
+                                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                    {t("issued")} {year}
+                                </p>
                             </div>
-                        </motion.div>
+
+                            <ArrowUpRight className="h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-apple-electric" />
+                        </motion.li>
                     ))}
-                </div>
-
+                </ul>
             </div>
         </section>
     );

@@ -1,85 +1,94 @@
 {
+    "Meta": {
+        "title": "Muhammad Naufal Arif",
+        "description": "Portofolio Muhammad Naufal Arif, spesialis Quality Assurance untuk data dan sistem web."
+    },
     "Navigation": {
         "home": "Beranda",
-        "journey": "Perjalanan",
-        "gallery": "Karya",
-        "stack": "Keahlian",
+        "journey": "Pengalaman",
+        "gallery": "Proyek",
+        "stack": "Alat",
         "certs": "Sertifikasi",
-        "contact": "Kontak"
+        "contact": "Kontak",
+        "switchLang": "Ganti bahasa", 
+        "toggleTheme": "Ganti tema", 
+        "menu": "Menu"
     },
     "Hero": {
-        "badge": "Tersedia untuk peluang baru",
-        "titlePrefix": "Membangun ",
-        "titleHighlight": "Sistem Andal",
-        "titleSuffix": " & Data Bersih.",
-        "subtitle": "Halo, saya Muhammad Naufal Arif. Saya lulusan Sistem Informasi yang kini bekerja di antara infrastruktur data AI dan web development. Saya sangat peduli pada bagaimana sebuah sistem benar-benar dibangun dari dasarnya.",
-        "btnExplore": "Lihat Karya Saya",
+        "badge": "Terbuka untuk peluang baru",
+        "name": "Muhammad Naufal Arif",
+        "role": "Quality Assurance",
+        "about": "Saya bekerja di bidang quality assurance untuk data AI dan sistem web. Awalnya saya mengaudit dataset dan melabeli point cloud 3D, lalu beralih membangun aplikasi web. Saya memperhatikan detail yang sering dilewatkan orang, karena di situlah masalah biasanya bermula.",
+        "btnExplore": "Lihat pengalaman",
         "btnDownload": "Unduh CV"
     },
     "Metrics": {
         "items": {
-            "gpa": {
-                "title": "Fondasi Akademik",
-                "value": "IPK 3.82",
-                "description": "Lulusan Sistem Informasi dari STT Terpadu Nurul Fikri. Di sini saya belajar memetakan logika menjadi sistem."
-            },
             "qa": {
-                "title": "Infrastruktur Data AI",
-                "value": "Spesialis QA",
-                "description": "Mengaudit data spasial dan point cloud 3D untuk memastikan model kendaraan otonom belajar dari dunia nyata secara akurat."
+                "title": "Spesialisasi",
+                "value": "Quality Assurance",
+                "description": "Memeriksa data sebelum dipakai. Dari anotasi sampai audit, saya memastikan hasilnya benar, konsisten, dan bisa dipercaya."
             },
             "web": {
-                "title": "Rekayasa Web",
+                "title": "Pengembangan Web",
                 "value": "Full-Stack",
-                "description": "Menulis kode server, merancang database, dan membangun antarmuka yang benar-benar berfungsi."
+                "description": "Membangun aplikasi web dari sisi server sampai antarmuka."
+            },
+            "gpa": {
+                "title": "Pendidikan",
+                "value": "IPK 3.82",
+                "description": "Lulusan Sistem Informasi, STT Terpadu Nurul Fikri."
             }
         }
     },
     "Experience": {
-        "sectionTag": "Perjalanan Karier",
-        "sectionTitle": "Pengalaman Saya",
+        "sectionTag": "Pengalaman",
+        "sectionTitle": "Riwayat Kerja",
         "jobs": [
             {
                 "role": "QA Specialist - Semantic OCC",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "Mei 2026 - Sekarang",
-                "description": "Saya menjadi pertahanan terakhir untuk dataset kendaraan otonom Tier-1. Pekerjaan harian saya berkisar pada mengaudit point cloud 3D LiDAR yang kompleks dan menjaga batas spasial yang ketat. Pekerjaan ini menyadarkan saya bahwa algoritma AI hanya akan sepintar data yang kita suapkan padanya."
+                "description": "Saya menjadi pemeriksa terakhir untuk dataset kendaraan otonom Tier-1. Sebagian besar waktu saya dipakai untuk mengaudit point cloud 3D LiDAR dan memastikan batas objek akurat. Pekerjaan ini mengajarkan bahwa model hanya sebaik data yang dipelajarinya."
             },
             {
                 "role": "Anotator Data - Semantic OCC",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "Mar 2026 - Mei 2026",
-                "description": "Saya mengerjakan fondasi awal pemetaan spasial 3D. Menghabiskan waktu berjam-jam dengan teliti melabeli point cloud ke dalam 40+ kategori objek, memastikan setiap batas ruang tidak saling tumpang tindih."
+                "description": "Saya melabeli point cloud 3D ke dalam lebih dari 40 kategori objek dan memastikan batas ruang tidak saling tumpang tindih. Ini menjadi dasar untuk peran QA yang saya jalani setelahnya."
             },
             {
                 "role": "Anotator Data - Rambu Lalu Lintas 4D",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "Feb 2026 - Mar 2026",
-                "description": "Langkah pertama saya di infrastruktur data AI. Saya melacak objek dinamis dan rambu lalu lintas di dataset 4D. Menjaga ID Objek agar tetap konsisten di setiap frame benar-benar menuntut akurasi tingkat piksel."
+                "description": "Pengalaman pertama saya di infrastruktur data AI. Saya melacak objek dinamis dan rambu lalu lintas di dataset 4D. ID objek harus tetap konsisten dari frame ke frame, jadi kesalahan kecil pun berpengaruh."
             },
             {
                 "role": "Administrator Audit Internal",
                 "company": "PT Panca Mitra Prima Sejahtera",
                 "period": "Nov 2025 - Jan 2026",
-                "description": "Sebelum masuk ke dunia tech, saya bekerja di ranah operasional. Saya memverifikasi dokumen perusahaan dan memantau pergerakan fisik barang. Pengalaman ini melatih insting saya untuk cepat menemukan kejanggalan."
+                "description": "Sebelum masuk ke dunia teknologi, saya bekerja di bidang operasional. Saya mencocokkan dokumen perusahaan dengan catatan dan memantau pergerakan stok di beberapa cabang. Pekerjaan ini melatih saya untuk cepat menemukan ketidaksesuaian."
             },
             {
                 "role": "Software Developer",
                 "company": "Uwais Telur Distributor",
                 "period": "Des 2024 - Mei 2025",
-                "description": "Saya membangun sistem aplikasi kasir (POS) dari nol untuk distributor lokal. Menggunakan Node.js dan SQLite, saya belajar bagaimana menerjemahkan kebutuhan bisnis yang berantakan menjadi alat fungsional yang dipakai orang setiap hari."
+                "description": "Saya membangun sistem kasir (POS) dari nol untuk distributor telur lokal, menggunakan Node.js dan SQLite. Ini pertama kalinya saya menerjemahkan kebutuhan bisnis yang berantakan menjadi alat yang dipakai setiap hari."
             },
             {
-                "role": "Instruktur & Administrator Akademik",
+                "role": "Instruktur dan Administrator Akademik",
                 "company": "Pondok Pesantren Ibnu Jauzi",
                 "period": "2018 - 2021",
-                "description": "Saya mengajar tata bahasa Arab (Nahwu & Shorof) dan mengurus administrasi akademik. Dari sini saya belajar cara mereduksi hal rumit menjadi penjelasan yang mudah dipahami."
+                "description": "Saya mengajar nahwu dan shorof serta mengurus administrasi akademik. Dari mengajar, saya belajar menjelaskan hal yang rumit dengan cara yang sederhana."
             }
-        ]
+        ],
+        "showMore": "Tampilkan {count} lagi", 
+        "showLess": "Tampilkan lebih sedikit"
     },
     "Gallery": {
         "sectionTag": "Proyek",
-        "sectionTitle": "Hal-hal yang Pernah Saya Bangun",
+        "sectionTitle": "Proyek Pilihan",
+        "explore": "Lihat proyek",
         "filterAll": "Semua Proyek",
         "filterAI": "AI & Data QA",
         "filterWeb": "Rekayasa Web",
@@ -89,7 +98,7 @@
             "lidar": {
                 "title": "QA Spasial 3D LiDAR",
                 "category": "AI Data QA",
-                "desc": "Saya mengaudit dan menganotasi point cloud 3D untuk dataset kendaraan otonom. Menjaga batas spasial yang ketat memastikan tidak ada data yang tumpang tindih. Proyek ini membuktikan bahwa AI sangat bergantung pada kebersihan datanya.",
+                "desc": "Saya mengaudit dan menganotasi point cloud 3D untuk dataset kendaraan otonom. Menjaga batas spasial tetap ketat berarti menangkap kesalahan kecil sebelum masuk ke data latih.",
                 "tags": [
                     "3D LiDAR",
                     "Semantic OCC",
@@ -99,7 +108,7 @@
             "dialectica": {
                 "title": "Dialectica",
                 "category": "Rekayasa Web",
-                "desc": "Aplikasi perpustakaan digital yang saya bangun dengan Next.js. Saya mengintegrasikan Gemini API agar pengguna bisa berdiskusi tentang buku yang mereka baca. Bagian tersulitnya adalah menjaga konteks AI tetap relevan di tengah diskusi yang panjang.",
+                "desc": "Perpustakaan digital yang saya bangun dengan Next.js. Pengguna bisa bertanya tentang buku yang mereka baca, didukung oleh Gemini API. Bagian tersulitnya adalah menjaga jawaban AI tetap relevan pada percakapan yang panjang.",
                 "tags": [
                     "Next.js",
                     "TypeScript",
@@ -109,7 +118,7 @@
             "ecommerce": {
                 "title": "Katalog Produk E-commerce",
                 "category": "Rekayasa Web",
-                "desc": "Proyek kolaborasi freelance di mana saya ikut mengembangkan sistem manajemen produk. Kami memakai Laravel 12 dan Livewire supaya tampilan frontend tetap reaktif tanpa harus menulis terlalu banyak custom JavaScript.",
+                "desc": "Proyek freelance di mana saya ikut membangun sistem manajemen produk. Kami memakai Laravel 12 dan Livewire agar antarmuka tetap responsif tanpa banyak menulis JavaScript kustom.",
                 "tags": [
                     "Laravel",
                     "Livewire",
@@ -119,7 +128,7 @@
             "uwais": {
                 "title": "Sistem POS Uwais",
                 "category": "Data & Sistem",
-                "desc": "Aplikasi enterprise pertama yang benar-benar saya rancang. Sistem ini menangani faktur otomatis dan pelacakan stok barang. Menjaga eksekusi query database tetap cepat di atas file lokal SQLite jadi tantangan yang cukup menyenangkan.",
+                "desc": "Aplikasi enterprise pertama yang saya rancang dan bangun. Sistem ini menangani faktur dan pelacakan stok. Menjaga query tetap cepat di atas database SQLite lokal adalah tantangan utamanya.",
                 "tags": [
                     "Node.js",
                     "Express",
@@ -129,7 +138,7 @@
             "kostku": {
                 "title": "Pencarian Properti Kostku",
                 "category": "UI/UX & Web",
-                "desc": "Di proyek ini saya mengambil peran sebagai Project Manager. Kami merancang antarmuka pencarian properti berbasis React.js. Saya belajar banyak tentang siklus Agile dan menyadari bahwa komunikasi dengan desainer itu sama pentingnya dengan menulis kode.",
+                "desc": "Di proyek ini saya berperan sebagai Project Manager. Kami membangun antarmuka pencarian properti dengan React.js. Saya belajar bagaimana siklus Agile berjalan di lapangan, dan bahwa komunikasi dengan desainer sama pentingnya dengan menulis kode.",
                 "tags": [
                     "React.js",
                     "Agile",
@@ -139,7 +148,7 @@
             "forum": {
                 "title": "REST API Forum Diskusi",
                 "category": "Rekayasa Web",
-                "desc": "Murni proyek backend. Saya menulis REST API untuk forum yang mengurus autentikasi pengguna dan sistem komentar bersarang (nested) dengan aman.",
+                "desc": "Proyek backend. Saya menulis REST API untuk forum diskusi dengan autentikasi pengguna dan komentar bertingkat.",
                 "tags": [
                     "Node.js",
                     "Express",
@@ -149,7 +158,7 @@
             "rental": {
                 "title": "Sistem Rental Mobil",
                 "category": "Rekayasa Web",
-                "desc": "Aplikasi yang sangat bergantung pada database untuk mengatur masa sewa dan sesi pengguna, dibangun menggunakan framework klasik CodeIgniter.",
+                "desc": "Aplikasi berbasis database untuk mengatur masa sewa dan sesi pengguna, dibangun dengan CodeIgniter.",
                 "tags": [
                     "PHP",
                     "CodeIgniter",
@@ -159,37 +168,45 @@
         }
     },
     "Stack": {
-        "sectionTag": "Alat Kerja",
-        "sectionTitle": "Apa yang Saya Gunakan",
+        "sectionTag": "Alat",
+        "sectionTitle": "Alat yang Saya Gunakan",
         "ai": {
             "title": "Infrastruktur Data",
-            "desc": "Pemetaan 3D LiDAR, segmentasi semantik, pelacakan bounding box, dan audit kualitas data yang ketat."
+            "desc": "Pemetaan 3D LiDAR, segmentasi semantik, pelacakan bounding box, dan audit kualitas data."
         },
         "web": {
-            "title": "Rekayasa Web",
-            "desc": "TypeScript, React (Next.js), Node.js, Laravel, dan teknologi di sekitarnya."
+            "title": "Pengembangan Web",
+            "desc": "TypeScript, React, Next.js, Node.js, dan Laravel."
         },
         "data": {
-            "title": "Penyimpanan & Deployment",
-            "desc": "MySQL, PostgreSQL, SQLite, Git, dan deployment di platform seperti Vercel."
+            "title": "Penyimpanan dan Deployment",
+            "desc": "MySQL, PostgreSQL, SQLite, Git, dan Vercel."
         },
         "cert": {
             "title": "Alur Kerja",
-            "desc": "Siklus Agile, pembuatan prototipe cepat, dan membaca dokumentasi teknis yang tak ada habisnya."
+            "desc": "Agile, prototipe cepat, dan membaca dokumentasi dengan teliti."
         }
     },
     "Certifications": {
-        "sectionTag": "Pembelajaran Berkelanjutan",
+        "sectionTag": "Pembelajaran",
         "sectionTitle": "Sertifikasi",
         "items": {
             "ibm": "Code Generation dengan IBM Granite — IBM SkillsBuild",
             "gamelab": "Bootcamp Backend Developer — Gamelab Indonesia",
             "infinite": "Studi Web Development — Infinite Learning"
-        }
+        },
+        "issued": "Terbit"
     },
     "Footer": {
-        "headline": "Saya suka memecahkan masalah yang rumit. Kalau Anda memiliki satu masalah yang perlu diselesaikan, mari ngobrol.",
-        "emailText": "Kirim Email",
-        "rights": "© 2026 Muhammad Naufal Arif. Dibuat dengan sepenuh hati."
+        "headline": "Kalau Anda punya masalah yang layak diselesaikan, atau proyek yang butuh pemeriksaan teliti, silakan hubungi saya.",
+        "emailText": "Kirim email",
+        "rights": "© 2026 Muhammad Naufal Arif. Hak cipta dilindungi.",
+        "location": "Jakarta, Indonesia", 
+        "copied": "Tersalin ke clipboard"
+    },
+    "NotFound": {
+        "title": "Halaman tidak ditemukan",
+        "description": "Halaman yang Anda cari tidak ada atau sudah dipindahkan.",
+        "back": "Kembali ke beranda"
     }
 }

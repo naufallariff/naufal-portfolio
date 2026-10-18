@@ -1,175 +1,138 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Briefcase, ChevronDown } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
 
-type JobType = {
-    role: string;
-    company: string;
-    period: string;
-    description: string;
-};
+type Job = { role: string; company: string; period: string; description: string };
 
-// Satu sumber ritme animasi fisik (Apple-like momentum)
 const EASE = [0.22, 1, 0.36, 1] as const;
-const COLLAPSE = { duration: 0.45, ease: EASE };
+const TRANSITION = { duration: 0.45, ease: EASE };
+const VISIBLE_COUNT = 3;
+const HIDDEN_COMPANY = "ibnu jauzi"; // entri ini disembunyikan dari timeline
 
-// --- Sub-komponen JobCard ---
-// Mengontrol garis dan dot-nya sendiri berdasarkan posisinya di urutan timeline.
-function JobCard({
-    job,
-    isFirst,
-    isLast,
-}: {
-    job: JobType;
-    isFirst: boolean;
-    isLast: boolean;
-}) {
+function JobCard({ job, isFirst, isLast }: { job: Job; isFirst: boolean; isLast: boolean }) {
     return (
-        // mb-8 memastikan ada celah antar kartu (terkecuali kartu terakhir)
-        <div className={`relative pl-14 md:pl-24 group ${isLast ? "" : "mb-8"}`}>
-
-            {/* 1. SEGMEN ATAS: Dari puncak kartu (garis batas atas baris ini) turun ke titik dot. 
-                Tidak digambar pada kartu urutan pertama agar timeline punya titik mulai (start). */}
+        <div className={`group relative pl-14 md:pl-24 ${isLast ? "" : "mb-8"}`}>
+            {/* Garis dari ujung atas baris ke titik dot. Tidak ada di kartu pertama. */}
             {!isFirst && (
-                <div className="absolute left-6 md:left-10 top-0 h-1/2 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10" />
+                <span className="absolute left-6 top-0 h-1/2 w-px -translate-x-1/2 bg-black/10 md:left-10 dark:bg-white/10" />
             )}
-
-            {/* 2. SEGMEN BAWAH: Dari titik dot, turun tembus ke bawah melewati margin-bottom (mb-8)
-                untuk menyambung ke kartu berikutnya. Tidak digambar di kartu terakhir. */}
+            {/* Garis dari titik dot menembus celah mb-8 ke kartu berikutnya. Tidak ada di kartu terakhir. */}
             {!isLast && (
-                <div className="absolute left-6 md:left-10 top-1/2 -bottom-8 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10" />
+                <span className="absolute left-6 top-1/2 -bottom-8 w-px -translate-x-1/2 bg-black/10 md:left-10 dark:bg-white/10" />
             )}
+            {/* Dot tepat di tengah tinggi kartu */}
+            <span className="absolute left-6 top-1/2 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[2.5px] border-slate-400 bg-slate-200 transition-colors duration-300 group-hover:border-apple-electric group-hover:bg-apple-electric md:left-10 dark:border-slate-600 dark:bg-slate-800" />
 
-            {/* 3. DOT KARDINAL: Tepat berada di sumbu tengah (vertikal & horizontal) relatif terhadap tinggi container pembungkus */}
-            <div className="absolute left-6 md:left-10 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-slate-200 dark:bg-slate-800 border-[2.5px] border-slate-400 dark:border-slate-600 group-hover:border-apple-electric group-hover:bg-apple-electric transition-colors duration-300 z-10" />
+            <article className="apple-glass relative overflow-hidden rounded-3xl p-6 lg:p-8">
+                <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-linear-to-r from-apple-electric/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                />
 
-            {/* Konten Kartu Utama */}
-            <div className="apple-glass p-6 lg:p-8 rounded-3xl shadow-apple-card hover:shadow-apple-glass transition-shadow duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-linear-to-r from-apple-electric/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-4 relative z-10">
+                <div className="relative z-1 mb-4 flex flex-col justify-between gap-3 md:flex-row md:items-start">
                     <div>
-                        <h3 className="text-lg lg:text-xl font-bold text-slate-900 dark:text-white leading-tight">
+                        <h3 className="text-lg font-bold leading-tight text-slate-900 lg:text-xl dark:text-white">
                             {job.role}
                         </h3>
-                        <p className="text-xs lg:text-sm font-semibold text-apple-electric mt-1.5 flex items-center gap-1.5">
-                            <Briefcase className="w-3.5 h-3.5" />
+                        <p className="mt-1.5 flex items-center gap-1.5 text-xs font-semibold text-apple-electric lg:text-sm">
+                            <Briefcase className="h-3.5 w-3.5" />
                             {job.company}
                         </p>
                     </div>
-                    <span className="text-[10px] lg:text-xs font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded-md whitespace-nowrap self-start">
+                    <span className="self-start whitespace-nowrap rounded-md bg-black/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 lg:text-xs dark:bg-white/5 dark:text-slate-400">
                         {job.period}
                     </span>
                 </div>
 
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed relative z-10">
+                <p className="relative z-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                     {job.description}
                 </p>
-            </div>
+            </article>
         </div>
     );
 }
 
-// --- Komponen Timeline Utama ---
 export function Timeline() {
     const t = useTranslations("Experience");
-    const allJobs = t.raw("jobs") as JobType[];
-    const jobs = allJobs.filter((job) => !job.company.toLowerCase().includes("ibnu jauzi"));
+    const jobs = (t.raw("jobs") as Job[]).filter(
+        (job) => !job.company.toLowerCase().includes(HIDDEN_COMPANY),
+    );
 
-    const visibleJobs = jobs.slice(0, 3);
-    const hiddenJobs = jobs.slice(3);
-    const hasMore = hiddenJobs.length > 0;
+    const visible = jobs.slice(0, VISIBLE_COUNT);
+    const hidden = jobs.slice(VISIBLE_COUNT);
+    const hasMore = hidden.length > 0;
 
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
 
-    const handleToggle = () => {
-        if (isExpanded) {
-            sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        setIsExpanded((v) => !v);
+    const toggle = () => {
+        if (expanded) sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setExpanded((v) => !v);
     };
 
-    // Ini kunci logikanya: 
-    // Blok "kartu pertama (visibleJobs)" menganggap kartu ketiganya (index 2) sebagai "kartu terakhir" 
-    // HANYA jika list dalam kondisi tertutup (!isExpanded) ATAU tidak ada hidden list (!hasMore).
-    const visibleIsLastBlock = !isExpanded || !hasMore;
+    // Kartu ke-3 menjadi kartu terakhir hanya saat blok tambahan tertutup atau tidak ada
+    const visibleIsEnd = !expanded || !hasMore;
 
     return (
         <section
             ref={sectionRef}
             id="journey"
-            className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16 scroll-mt-28"
+            className="relative z-10 mx-auto w-full max-w-4xl scroll-mt-28 px-6 pt-20 md:px-8 md:pt-28 pb-0"
         >
-            <div className="flex flex-col items-center text-center mb-12">
-                <span className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-apple-electric/10 text-apple-electric mb-4 border border-apple-electric/25">
-                    {t("sectionTag")}
-                </span>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
-                    {t("sectionTitle")}
-                </h2>
-            </div>
+            <SectionHeader tag={t("sectionTag")} title={t("sectionTitle")} />
 
-            <div className="relative w-full">
-                {/* 
-                  1. Mapping barisan pertama (Visible). 
-                  Kartu ini selalu dirender berapapun statenya. 
-                */}
-                {visibleJobs.map((job, i) => (
+            <div className="relative">
+                {visible.map((job, i) => (
                     <JobCard
                         key={job.role + job.company}
                         job={job}
                         isFirst={i === 0}
-                        isLast={visibleIsLastBlock && i === visibleJobs.length - 1}
+                        isLast={visibleIsEnd && i === visible.length - 1}
                     />
                 ))}
 
-                {/* 
-                  2. Mapping barisan kedua (Hidden) di bawah kontrol Animasi Framer Motion. 
-                  Garis dari visibleJob terakhir akan otomatis menjuntai ke kartu pertama di blok ini
-                  karena saat `isExpanded == true`, `isLast` pada visibleJobs index terakhir dicabut. 
-                */}
-                <AnimatePresence initial={false}>
-                    {isExpanded && hasMore && (
-                        <motion.div
-                            key="more-jobs"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={COLLAPSE}
-                            className="overflow-hidden"
-                        >
-                            {hiddenJobs.map((job, i) => (
+                {hasMore && (
+                    <motion.div
+                        id="experience-more"
+                        initial={false}
+                        animate={{ height: expanded ? "auto" : 0, opacity: expanded ? 1 : 0 }}
+                        transition={TRANSITION}
+                        className="overflow-hidden"
+                    >
+                        {/* inert: saat tertutup, konten tidak bisa difokus atau dibaca screen reader */}
+                        <div inert={!expanded}>
+                            {hidden.map((job, i) => (
                                 <JobCard
                                     key={job.role + job.company}
                                     job={job}
-                                    isFirst={false} // Selalu false karena merupakan sambungan dari visible list
-                                    isLast={i === hiddenJobs.length - 1} // Disinilah garis baru benar-benar terpotong mati
+                                    isFirst={false}
+                                    isLast={i === hidden.length - 1}
                                 />
                             ))}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        </div>
+                    </motion.div>
+                )}
 
-                {/* Tombol Tampil Lebih Banyak */}
                 {hasMore && (
-                    <div className="flex justify-center pl-6 md:pl-24 mt-6">
+                    <div className="mt-6 flex justify-center">
                         <button
-                            onClick={handleToggle}
-                            className="group flex items-center gap-2 px-6 py-3 rounded-full apple-glass border border-black/10 dark:border-white/10 text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-apple-electric apple-active-scale transition-colors shadow-sm cursor-pointer"
+                            type="button"
+                            onClick={toggle}
+                            aria-expanded={expanded}
+                            aria-controls="experience-more"
+                            className="apple-glass group inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold text-slate-700 transition-colors apple-active-scale hover:text-apple-electric md:text-sm dark:text-slate-300"
                         >
-                            <span>
-                                {isExpanded ? "Collapse Timeline" : `Show More Experience (${hiddenJobs.length})`}
-                            </span>
+                            <span>{expanded ? t("showLess") : t("showMore", { count: hidden.length })}</span>
                             <motion.span
-                                animate={{ rotate: isExpanded ? 180 : 0 }}
-                                transition={COLLAPSE}
+                                animate={{ rotate: expanded ? 180 : 0 }}
+                                transition={TRANSITION}
                                 className="flex"
                             >
-                                <ChevronDown className="w-4 h-4" />
+                                <ChevronDown className="h-4 w-4" />
                             </motion.span>
                         </button>
                     </div>

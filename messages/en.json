@@ -1,79 +1,94 @@
 {
+    "Meta": {
+        "title": "Muhammad Naufal Arif",
+        "description": "Portfolio of Muhammad Naufal Arif, a Quality Assurance specialist working on data and web systems."
+    },
     "Navigation": {
         "home": "Home",
-        "journey": "Journey",
-        "gallery": "Work",
-        "stack": "Stack",
+        "journey": "Experience",
+        "gallery": "Projects",
+        "stack": "Tools",
         "certs": "Certifications",
-        "contact": "Contact"
+        "contact": "Contact",
+        "switchLang": "Switch language",
+        "toggleTheme": "Toggle theme",
+        "menu": "Menu"
     },
     "Hero": {
-        "badge": "Available for new opportunities",
-        "titlePrefix": "Building ",
-        "titleHighlight": "Reliable",
-        "titleSuffix": " Systems & Clean Data.",
-        "subtitle": "Hi, I'm Muhammad Naufal Arif. I graduated in Information Systems and currently work at the intersection of AI data infrastructure and web development. I care deeply about how things are built under the hood.",
-        "btnExplore": "See My Work",
-        "btnDownload": "Download Resume"
+        "badge": "Open to new opportunities",
+        "name": "Muhammad Naufal Arif",
+        "role": "Quality Assurance",
+        "about": "I work on quality assurance for AI training data and web systems. I started by auditing datasets and labeling 3D point clouds, then moved into building web applications. I pay attention to the details most people skip, because that is usually where problems start.",
+        "btnExplore": "View experience",
+        "btnDownload": "Download resume"
     },
     "Metrics": {
         "items": {
-            "gpa": {
-                "title": "Academic Foundation",
-                "value": "3.82 GPA",
-                "description": "Information Systems graduate from STT Terpadu Nurul Fikri. Learned how to map logic into systems."
-            },
             "qa": {
-                "title": "AI Data Infrastructure",
-                "value": "QA Specialist",
-                "description": "Auditing 3D point clouds and spatial data to ensure autonomous models learn from reality."
+                "title": "Specialization",
+                "value": "Quality Assurance",
+                "description": "Checking data before it is used. From annotation to audit, I make sure the result is correct, consistent, and can be trusted."
             },
             "web": {
                 "title": "Web Development",
                 "value": "Full-Stack",
-                "description": "Writing servers, wiring databases, and building interfaces that just work."
+                "description": "Building applications from the server side to the interface."
+            },
+            "gpa": {
+                "title": "Education",
+                "value": "GPA 3.82",
+                "description": "Information Systems graduate, STT Terpadu Nurul Fikri."
             }
         }
     },
     "Experience": {
-        "sectionTag": "Career Journey",
-        "sectionTitle": "Where I've Been",
+        "sectionTag": "Experience",
+        "sectionTitle": "Work Experience",
         "jobs": [
             {
                 "role": "QA Specialist - Semantic OCC",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "May 2026 - Present",
-                "description": "I act as the final line of defense for a Tier-1 autonomous driving dataset. My daily work revolves around auditing complex 3D LiDAR point clouds and enforcing strict spatial boundaries. It taught me that an algorithm is only as smart as the data we feed it."
+                "description": "I am the final check on a Tier-1 autonomous driving dataset. Most of my time goes into auditing 3D LiDAR point clouds and making sure object boundaries are accurate. The work taught me that a model can only be as good as the data it learns from."
             },
             {
                 "role": "Data Annotator - Semantic OCC",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "Mar 2026 - May 2026",
-                "description": "I did the groundwork for 3D spatial mapping. I spent hours meticulously labeling point clouds into 40+ object categories, making sure the environment boundaries didn't bleed into one another."
+                "description": "I labeled 3D point clouds into more than 40 object categories and checked that spatial boundaries did not overlap. This was the groundwork for the QA role that followed."
             },
             {
                 "role": "Data Annotator - 4D Traffic Sign",
                 "company": "PT Daligent Solusi Indonesia (KUPU)",
                 "period": "Feb 2026 - Mar 2026",
-                "description": "My introduction to AI data infrastructure. I tracked dynamic objects and traffic signs across 4D spatio-temporal datasets. Keeping Object IDs consistent across frames required pixel-perfect accuracy."
+                "description": "My first role in AI data. I tracked dynamic objects and traffic signs across 4D spatio-temporal datasets. Object IDs had to stay consistent from frame to frame, so small mistakes mattered."
             },
             {
                 "role": "Internal Audit Administrator",
                 "company": "PT Panca Mitra Prima Sejahtera",
                 "period": "Nov 2025 - Jan 2026",
-                "description": "Before entering tech, I worked in operations. I cross-verified corporate documents and monitored physical inventory movements. It trained my eyes to catch discrepancies early."
+                "description": "Before moving into tech, I worked in operations. I checked company documents against records and monitored stock movement across branches. It trained me to spot discrepancies early."
             },
             {
                 "role": "Software Developer",
                 "company": "Uwais Telur Distributor",
                 "period": "Dec 2024 - May 2025",
-                "description": "I built a point-of-sale system from scratch for a local distributor. Using Node.js and SQLite, I learned how to translate messy business requirements into a functional tool people use every day."
+                "description": "I built a point-of-sale system from scratch for a local egg distributor, using Node.js and SQLite. It was my first time turning messy business requirements into a tool people use every day."
+            },
+            {
+                "role": "Instructor and Academic Administrator",
+                "company": "Pondok Pesantren Ibnu Jauzi",
+                "period": "2018 - 2021",
+                "description": "I taught Arabic grammar (nahwu and sharaf) and handled academic administration. Teaching taught me to explain complicated things in simple terms."
             }
-        ]
+        ],
+        "showMore": "Show {count} more",
+        "showLess": "Show less"
     },
     "Gallery": {
         "sectionTag": "Projects",
-        "sectionTitle": "Things I've Built",
+        "sectionTitle": "Selected Projects",
+        "explore": "View project",
         "filterAll": "All Projects",
         "filterAI": "AI & Data QA",
         "filterWeb": "Web Engineering",
@@ -83,7 +98,7 @@
             "lidar": {
                 "title": "3D LiDAR Spatial QA",
                 "category": "AI Data QA",
-                "desc": "I audited and annotated complex 3D point clouds for autonomous driving datasets. Enforcing strict spatial boundaries and zero defects taught me that an AI is only as smart as the data it learns from.",
+                "desc": "I audited and annotated 3D point clouds for autonomous driving datasets. Keeping spatial boundaries strict meant catching small errors before they reached the training data.",
                 "tags": [
                     "3D LiDAR",
                     "Semantic OCC",
@@ -93,7 +108,7 @@
             "dialectica": {
                 "title": "Dialectica",
                 "category": "Web Engineering",
-                "desc": "A digital library interface I built using Next.js. I integrated the Gemini API so users could chat about the books they read. The hardest part was keeping the AI's context window relevant during long discussions.",
+                "desc": "A digital library built with Next.js. Users can ask questions about the books they read, powered by the Gemini API. The hardest part was keeping the AI's answers relevant over long conversations.",
                 "tags": [
                     "Next.js",
                     "TypeScript",
@@ -103,7 +118,7 @@
             "ecommerce": {
                 "title": "E-commerce Product Catalog",
                 "category": "Web Engineering",
-                "desc": "A freelance collaboration where I helped develop a product management system. We used Laravel 12 and Livewire to keep the frontend reactive without writing a ton of custom JavaScript.",
+                "desc": "A freelance project where I helped build a product management system. We used Laravel 12 and Livewire to keep the interface reactive without writing much custom JavaScript.",
                 "tags": [
                     "Laravel",
                     "Livewire",
@@ -113,7 +128,7 @@
             "uwais": {
                 "title": "Uwais Point of Sale",
                 "category": "Data & Systems",
-                "desc": "The first actual enterprise tool I engineered. It handles automated invoicing and tracks inventory. Keeping the database queries fast on a local SQLite file was a fun challenge.",
+                "desc": "The first enterprise tool I designed and built. It handles invoicing and inventory tracking. Keeping queries fast on a local SQLite database was the main challenge.",
                 "tags": [
                     "Node.js",
                     "Express",
@@ -123,7 +138,7 @@
             "kostku": {
                 "title": "Kostku Property Finder",
                 "category": "UI/UX & Web",
-                "desc": "I stepped into a Project Manager role for this one. We built a React.js property search interface. It taught me a lot about Agile cycles and why communicating with designers is just as important as writing code.",
+                "desc": "I worked as the project manager on this one. We built a property search interface with React.js. It showed me how Agile cycles work in practice, and why talking with designers matters as much as writing code.",
                 "tags": [
                     "React.js",
                     "Agile",
@@ -133,7 +148,7 @@
             "forum": {
                 "title": "Discussion Forum API",
                 "category": "Web Engineering",
-                "desc": "A purely backend project. I wrote a REST API for a forum that handles user authentication and nested comments securely.",
+                "desc": "A backend project. I wrote a REST API for a discussion forum with user authentication and nested comments.",
                 "tags": [
                     "Node.js",
                     "Express",
@@ -143,7 +158,7 @@
             "rental": {
                 "title": "Car Rental System",
                 "category": "Web Engineering",
-                "desc": "A database-heavy application for managing rental periods and user sessions, built on the classic CodeIgniter framework.",
+                "desc": "A database-driven application for managing rental periods and user sessions, built with CodeIgniter.",
                 "tags": [
                     "PHP",
                     "CodeIgniter",
@@ -154,36 +169,44 @@
     },
     "Stack": {
         "sectionTag": "Tools",
-        "sectionTitle": "What I Use",
+        "sectionTitle": "Tools I Use",
         "ai": {
             "title": "Data Infrastructure",
-            "desc": "3D LiDAR mapping, semantic segmentation, bounding box tracking, and strict quality assurance."
+            "desc": "3D LiDAR mapping, semantic segmentation, bounding box tracking, and data quality audits."
         },
         "web": {
-            "title": "Web Engineering",
-            "desc": "TypeScript, React (Next.js), Node.js, Laravel, and everything in between."
+            "title": "Web Development",
+            "desc": "TypeScript, React, Next.js, Node.js, and Laravel."
         },
         "data": {
-            "title": "Storage & Deployment",
-            "desc": "MySQL, PostgreSQL, SQLite, Git, and deploying on platforms like Vercel."
+            "title": "Storage and Deployment",
+            "desc": "MySQL, PostgreSQL, SQLite, Git, and Vercel."
         },
         "cert": {
             "title": "Workflow",
-            "desc": "Agile cycles, rapid prototyping, and reading through endless documentation."
+            "desc": "Agile, quick prototyping, and reading documentation carefully."
         }
     },
     "Certifications": {
-        "sectionTag": "Continuous Learning",
+        "sectionTag": "Learning",
         "sectionTitle": "Certifications",
         "items": {
             "ibm": "Code Generation with IBM Granite — IBM SkillsBuild",
             "gamelab": "Backend Developer Bootcamp — Gamelab Indonesia",
             "infinite": "Web Development Study — Infinite Learning"
-        }
+        },
+        "issued": "Issued"
     },
     "Footer": {
-        "headline": "I like solving hard problems. If you have one, let's talk.",
-        "emailText": "Send an Email",
-        "rights": "© 2026 Muhammad Naufal Arif. Built with care."
+        "headline": "If you have a problem worth solving, or a project that needs careful checking, get in touch.",
+        "emailText": "Send an email",
+        "rights": "© 2026 Muhammad Naufal Arif. All rights reserved.",
+        "location": "Jakarta, Indonesia",
+        "copied": "Copied to clipboard"
+    },
+    "NotFound": {
+        "title": "Page not found",
+        "description": "The page you are looking for does not exist or has moved.",
+        "back": "Back to home"
     }
 }
