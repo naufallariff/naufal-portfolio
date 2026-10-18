@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Moon, Sun, Globe, Briefcase, LayoutGrid, Terminal, Award, Mail, Menu, X } from "lucide-react";
+import { Moon, Sun, Globe, Briefcase, Terminal, Award, Mail, Menu, X } from "lucide-react";
 
 const SPRING = { type: "spring", stiffness: 280, damping: 34, mass: 0.9 } as const;
 const HIDE_AFTER_Y = 120;
@@ -14,7 +14,7 @@ const LEAVE_DELAY = 350;
 
 const NAV_ITEMS = [
     { id: "journey", icon: Briefcase, href: "#journey" },
-    { id: "gallery", icon: LayoutGrid, href: "#gallery" },
+    // { id: "gallery", icon: LayoutGrid, href: "#gallery" },
     { id: "stack", icon: Terminal, href: "#stack" },
     { id: "certs", icon: Award, href: "#certifications" },
     { id: "contact", icon: Mail, href: "#contact" },

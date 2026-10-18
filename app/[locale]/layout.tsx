@@ -6,6 +6,7 @@ import "../globals.css";
 import { ThemeProvider } from "../../components/ThemeProvider";
 import { NavBar } from "../../components/ui/NavBar";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
+import { Analytics } from "@vercel/analytics/next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://naufal.dev";
 
@@ -43,7 +44,7 @@ export async function generateMetadata({
     twitter: { card: "summary_large_image", title, description },
     robots: { index: true, follow: true },
     verification: {
-      google: "KODE_DARI_SEARCH_CONSOLE",
+      google: "KnAYFd12cNlngcBiogQilO-i8Xncig6f5iaBIf2b3c8",
     },
   };
 }
@@ -75,6 +76,7 @@ export default async function RootLayout({
             <NavBar />
             <main className="flex flex-col items-center w-full overflow-x-hidden relative z-10">
               {children}
+              <Analytics />
             </main>
           </ThemeProvider>
         </NextIntlClientProvider>
