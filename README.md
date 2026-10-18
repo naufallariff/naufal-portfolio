@@ -8,7 +8,7 @@
 
 A high-performance, fluid, and responsive personal portfolio web application designed with **Apple-inspired UI/UX principles**, hardware-accelerated ambient animations, and multi-language support.
 
-**Live Demo:** [naufal-portfolio.vercel.app](https://naufal-portfolio.vercel.app) *(or your custom domain)*
+**Live Demo:** [https://naufalarif.vercel.app/en](https://naufalarif.vercel.app/en)
 
 ---
 
@@ -75,7 +75,7 @@ Ensure you have the following installed locally:
 
 1. **Clone the repository:**
 ```bash
-git clone [https://github.com/naufallariff/naufal-portfolio.git](https://github.com/naufallariff/naufal-portfolio.git)
+git clone https://github.com/naufallariff/naufal-portfolio.git
 cd naufal-portfolio
 
 ```
