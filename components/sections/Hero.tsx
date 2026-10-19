@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 
-// Rasio redaman (damping / (2 * sqrt(stiffness))) sekitar 1.1, jadi tidak memantul.
 const spring = (delay = 0) => ({ type: "spring" as const, damping: 26, stiffness: 140, delay });
 
 export function Hero() {
@@ -21,11 +20,11 @@ export function Hero() {
     return (
         <section
             id="home"
-            className="relative mx-auto flex min-h-[88svh] w-full max-w-5xl items-center px-6 pt-36 pb-8 md:px-8"
+            className="relative mx-auto flex min-h-[88svh] w-full max-w-5xl items-center overflow-hidden px-6 pb-8 pt-32 md:px-8 md:pt-36"
         >
-            <div 
+            <div
                 aria-hidden
-                className="pointer-events-none absolute left-1/2 top-1/2 -z-10 size-128 -translate-x-1/2 -translate-y-1/2 rounded-full bg-apple-electric/15 blur-[140px] dark:bg-apple-navy/35" 
+                className="pointer-events-none absolute left-1/2 top-1/2 -z-10 size-128 -translate-x-1/2 -translate-y-1/2 rounded-full bg-apple-electric/15 blur-[140px] dark:bg-apple-navy/35"
             />
 
             <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
@@ -42,7 +41,7 @@ export function Hero() {
                                     alt={t("name")}
                                     fill
                                     priority
-                                    sizes="(min-width: 1024px) 26rem, 20rem"
+                                    sizes="(min-width: 1024px) 26rem, (min-width: 640px) 18rem, 16rem"
                                     className="object-cover object-[center_20%] transition-transform duration-700 ease-apple group-hover:scale-105"
                                 />
                             </div>

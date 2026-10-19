@@ -8,11 +8,8 @@ import { useTranslations } from "next-intl";
 import { Moon, Sun, Globe, Briefcase, Terminal, Award, Mail, Menu, X } from "lucide-react";
 
 const BRAND = "Naufal Arif";
-
-// Rasio redaman sekitar 1.07, jadi navbar bergerak tanpa memantul
 const SPRING = { type: "spring", stiffness: 280, damping: 34, mass: 0.9 } as const;
 const REDUCED = { duration: 0.01 } as const;
-
 const HIDE_AFTER_Y = 120;
 const DIRECTION_MIN = 6;
 const LEAVE_DELAY = 350;
@@ -43,7 +40,6 @@ export function NavBar() {
     const lastYRef = useRef(0);
     const timerRef = useRef(0);
 
-    // Navbar tampil saat terlihat atau saat menu mobile terbuka
     const shown = visible || isOpen;
 
     const show = useCallback(() => {
@@ -108,7 +104,7 @@ export function NavBar() {
     };
 
     const toggleLocale = () => {
-        const next = pathname.startsWith("/id") ? "en" : "id";
+        const next = /^\/id(\/|$)/.test(pathname) ? "en" : "id";
         router.replace(pathname.replace(/^\/(en|id)(?=\/|$)/, `/${next}`));
     };
 
@@ -121,69 +117,78 @@ export function NavBar() {
                 className="fixed inset-x-0 top-0 z-40 hidden h-6 md:block"
             />
 
-            <motion.header
-                initial={false}
-                animate={{ y: shown ? 0 : -140, opacity: shown ? 1 : 0, scale: shown ? 1 : 0.98 }}
-                transition={transition}
-                onPointerEnter={onEnter}
-                onPointerLeave={onLeave}
-                className={`fixed left-1/2 top-4 z-50 w-[92%] max-w-4xl -translate-x-1/2 will-change-transform ${shown ? "pointer-events-auto" : "pointer-events-none"
-                    }`}
-            >
-                <nav className="apple-glass flex items-center justify-between rounded-full py-2.5 pl-2.5 pr-3 md:px-5 md:py-3">
-                    <a
-                        href="#home"
-                        aria-label={BRAND}
-                        className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-black/5 apple-active-scale dark:hover:bg-white/10"
-                    >
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-apple-electric text-[11px] font-bold tracking-tight text-white">
-                            NA
-                        </span>
-                        <span className="hidden text-sm font-semibold tracking-tight text-slate-900 sm:block dark:text-white">
-                            {BRAND}
-                        </span>
-                    </a>
+            {/* Wrapper: centering lewat flex, bukan translate. Tidak menangkap klik. */}
+            <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+                <motion.header
+                    initial={false}
+                    animate={{ y: shown ? 0 : -140, opacity: shown ? 1 : 0, scale: shown ? 1 : 0.98 }}
+                    transition={transition}
+                    onPointerEnter={onEnter}
+                    onPointerLeave={onLeave}
+                    className={`w-full max-w-4xl will-change-transform ${shown ? "pointer-events-auto" : "pointer-events-none"
+                        }`}
+                >
+                    <nav className="apple-glass flex items-center justify-between rounded-full py-2.5 pl-2.5 pr-3 md:px-5 md:py-3">
+                        <a
+                            href="#home"
+                            aria-label={BRAND}
+                            className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-black/5 apple-active-scale dark:hover:bg-white/10"
+                        >
+                            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-apple-navy-deep ring-1 ring-white/15 text-[11px] font-bold tracking-tight text-white">
+                                NA
+                            </span>
+                            <span className="hidden text-sm font-semibold tracking-tight text-slate-900 sm:block dark:text-white">
+                                {BRAND}
+                            </span>
+                        </a>
 
-                    <div className="hidden items-center gap-1 rounded-full bg-black/5 p-1 md:flex dark:bg-white/5">
-                        {NAV_ITEMS.map((item) => (
-                            <a
-                                key={item.id}
-                                href={item.href}
-                                className="rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-white/70 hover:text-apple-electric dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+                        <div className="hidden items-center gap-1 rounded-full bg-black/5 p-1 md:flex dark:bg-white/5">
+                            {NAV_ITEMS.map((item) => (
+                                <a
+                                    key={item.id}
+                                    href={item.href}
+                                    className="rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-white/70 hover:text-apple-electric dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+                                >
+                                    {t(item.id)}
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                            <button
+                                type="button"
+                                onClick={toggleLocale}
+                                className={ICON_BTN}
+                                title={t("switchLang")}
+                                aria-label={t("switchLang")}
                             >
-                                {t(item.id)}
-                            </a>
-                        ))}
-                    </div>
+                                <Globe className="h-4 w-4" />
+                            </button>
 
-                    <div className="flex items-center gap-1">
-                        <button type="button" onClick={toggleLocale} className={ICON_BTN} title={t("switchLang")} aria-label={t("switchLang")}>
-                            <Globe className="h-4 w-4" />
-                        </button>
+                            <button
+                                type="button"
+                                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                                className={ICON_BTN}
+                                title={t("toggleTheme")}
+                                aria-label={t("toggleTheme")}
+                            >
+                                <Sun className="hidden h-4 w-4 dark:block" />
+                                <Moon className="h-4 w-4 dark:hidden" />
+                            </button>
 
-                        <button
-                            type="button"
-                            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                            className={ICON_BTN}
-                            title={t("toggleTheme")}
-                            aria-label={t("toggleTheme")}
-                        >
-                            <Sun className="hidden h-4 w-4 dark:block" />
-                            <Moon className="h-4 w-4 dark:hidden" />
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => setIsOpen((v) => !v)}
-                            aria-expanded={isOpen}
-                            aria-label={t("menu")}
-                            className={`${ICON_BTN} md:hidden`}
-                        >
-                            {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-                        </button>
-                    </div>
-                </nav>
-            </motion.header>
+                            <button
+                                type="button"
+                                onClick={() => setIsOpen((v) => !v)}
+                                aria-expanded={isOpen}
+                                aria-label={t("menu")}
+                                className={`${ICON_BTN} md:hidden`}
+                            >
+                                {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+                            </button>
+                        </div>
+                    </nav>
+                </motion.header>
+            </div>
 
             <AnimatePresence>
                 {isOpen && (
